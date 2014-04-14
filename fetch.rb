@@ -1,4 +1,4 @@
-require 'watir'
+require 'watir-webdriver'
 require 'timeout'
 
 File.open("flight_price.csv", "w") do |csv_file|
@@ -7,7 +7,7 @@ end
 
 while (1)
   print "Fetch start"
-  browser = Watir::Browser.new
+  browser = Watir::Browser.new :chrome
 
   # Tianxun
   #　browser.goto "http://www.tianxun.cn/transport/flights/pvg/pit/140805/airfares-from-shanghai-pu-dong-to-pittsburgh-int-l-apt.-in-august-2014.html"
