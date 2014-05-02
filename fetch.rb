@@ -1,4 +1,5 @@
-require 'watir-webdriver'
+# require 'watir-webdriver'
+require 'watir'
 require 'timeout'
 
 File.open("flight_price.csv", "w") do |csv_file|
@@ -16,19 +17,33 @@ while (1)
   # 全日空
   browser.goto "http://www.ana.co.jp/asw/wws/cn/c/"
 
+
+  # Doesn't work.
+  # single = browser.radio :id, "ticket_2"
+  # single.click
+  
+  # from = browser.text_field :name, "DepApoText"
+  # from.set "上海(浦东)/Shanghai(Pudong)[PVG]"
+  # to = browser.text_field :name, "ArrApoText"
+  # to.set "匹兹堡(PIT)/Pittsburgh[PIT]"
+
+  # browser.link(:id, "wayTo").click
+  # browser.link(:id, "calendar-next").click
+  # browser.link(:id, "0805").click
+  
+  browser.execute_script '$("#ticket_2").click()'
+  browser.execute_script '$("#reservation > form > dl.form-box.spl14 > dd:nth-child(3) > a").click()'
+  browser.execute_script '$("#CN").click()'
+  browser.execute_script '$("#apo_SHA").click()'
+  browser.execute_script '$("#reservation > form > dl.form-box.spl14 > dd.btn-change.spt10 > a").click()'
+  browser.execute_script '$("#US").click()'
+  browser.execute_script '$("#apo_PIT").click()'
+  
+  browser.execute_script '$("#wayTo").click()'
+  browser.execute_script '$("#calendar-next").click()'
+  browser.execute_script '$("#0805").click()'
+
   form = browser.form :name, "segConditionForm"
-  single = browser.radio :id, "ticket_2"
-  from = browser.text_field :name, "DepApoText"
-  to = browser.text_field :name, "ArrApoText"
-
-  single.click
-  from.set "上海(浦东)/Shanghai(Pudong)[PVG]"
-  to.set "匹兹堡(PIT)/Pittsburgh[PIT]"
-
-  browser.link(:id, "wayTo").click
-  browser.link(:id, "calendar-next").click
-  browser.link(:id, "0805").click
-
   form.submit
 
   if not browser.table(:xpath, "//*[@id=\"bodyArea\"]/table[15]").exists?
